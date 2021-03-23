@@ -2,10 +2,15 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_todo_app/frontend/event/app_event_bus.dart';
 
-abstract class BaseViewModel extends ChangeNotifier {
+abstract class BaseViewModel extends ChangeNotifier with EventFire, EventSubscriber{
   HashMap<String, bool?> _inRequests = HashMap();
   ViewState _viewState = ViewState(UIState.EMPTY);
+
+  BaseViewModel() {
+    registerEventHere();
+  }
 
   ViewState get viewState => _viewState;
 
@@ -28,6 +33,11 @@ abstract class BaseViewModel extends ChangeNotifier {
     }
   }
 
+  @override
+  void registerEventHere() {
+    // register event here
+  }
+
   void safeAsync(String key, Function() request ) async{
     if (_inRequests[key] != null) return;
     _inRequests[key] = true;
@@ -40,6 +50,11 @@ abstract class BaseViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    cancelAllEvent();
+  }
 
   void setNewState(ViewState newState) {
     if (_viewState.state == newState.state && _viewState.msg == newState.msg)

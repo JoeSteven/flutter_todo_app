@@ -15,4 +15,18 @@ class TodoTask {
     return TodoTask(this.id, title ?? this.title,
         isFinished: isFinished ?? this.isFinished);
   }
+
+  @override
+  bool operator ==(Object other) {
+    return (other is TodoTask) && other.id == this.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
+
+  bool sameInfo(TodoTask other) {
+    return other.isFinished == this.isFinished &&
+        other.title == this.title &&
+        other.id == this.id;
+  }
 }

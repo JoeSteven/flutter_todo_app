@@ -54,9 +54,13 @@ void main() {
 
   test("Test safe request", () async {
     _vm.safeAsync("key1", () async {await _vm.addCount();});
+    _vm.safeAsync("key1", () async {await _vm.addCount();});
+    _vm.safeAsync("key1", () async {await _vm.addCount();});
+    expect(_vm.count, 1);
     _vm.safeAsync("key2", () async {await _vm.addCount();});
-    _vm.safeAsync("key1", () async {await _vm.addCount();});
-    _vm.safeAsync("key1", () async {await _vm.addCount();});
     expect(_vm.count, 2);
+    await Future.delayed(Duration(seconds: 1));
+    _vm.safeAsync("key1", () async {await _vm.addCount();});
+    expect(_vm.count, 3);
   });
 }

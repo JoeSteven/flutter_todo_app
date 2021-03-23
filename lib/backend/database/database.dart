@@ -11,7 +11,11 @@ part 'database.g.dart'; //flutter packages pub run build_runner build
 abstract class AppDataBase extends FloorDatabase {
   TodoTaskDao get todoTaskDao;
 
-  static Future<AppDataBase> instance() {
-    return $FloorAppDataBase.databaseBuilder('todo_app_databse.dp').build();
+  static Future<AppDataBase> instance(String database) {
+    return $FloorAppDataBase.databaseBuilder(database).build();
+  }
+
+  static Future<AppDataBase> testInstance() {
+    return $FloorAppDataBase.inMemoryDatabaseBuilder().build();
   }
 }

@@ -42,39 +42,54 @@ void main() {
   test("Test insert task list success", () async {
     _listViewModel.loadTasks();
     await Future.delayed(Duration(seconds: 1));
+    _addTaskViewModel.setDisplay(true);
     _addTaskViewModel.addTask("test2");
     await Future.delayed(Duration(seconds: 1));
     expect(_listViewModel.taskList.last.title, "test2");
+    expect(_addTaskViewModel.display, false);
   });
 
   test("Test insert task list cancel", () async {
+    _addTaskViewModel.setDisplay(true);
     _addTaskViewModel.addTask("test2", cancel: true);
     await Future.delayed(Duration(seconds: 1));
-    expect(_addTaskViewModel.viewState.state, UIState.SUCCESS);
+    expect(_addTaskViewModel.display, false);
   });
 
   test("Test update task list success", () async {
     _listViewModel.loadTasks();
     await Future.delayed(Duration(seconds: 1));
+    _updateTaskViewModel.setDisplay(true);
     _updateTaskViewModel.updateTask(_listViewModel.taskList[0],newTitle: "update1", newState: true);
     await Future.delayed(Duration(seconds: 1));
     expect(_listViewModel.taskList[0].title, "update1");
     expect(_listViewModel.taskList[0].isFinished, true);
+    expect(_updateTaskViewModel.display, false);
   });
 
   test("Test update task list cancel", () async {
+    _updateTaskViewModel.setDisplay(true);
     _updateTaskViewModel.updateTask(TodoTask(0, "cancel"), cancel: true);
     await Future.delayed(Duration(seconds: 1));
-    expect(_updateTaskViewModel.viewState.state, UIState.SUCCESS);
+    expect(_updateTaskViewModel.display, false);
   });
 
   test("Test delete task list success", () async {
     _listViewModel.loadTasks();
     await Future.delayed(Duration(seconds: 1));
     final lastSize = _listViewModel.taskList.length;
+    _deleteTaskViewModel.setDisplay(true);
     _deleteTaskViewModel.deleteTask(_listViewModel.taskList[0]);
     await Future.delayed(Duration(seconds: 1));
     expect(_listViewModel.taskList.length + 1, lastSize);
+    expect(_deleteTaskViewModel.display, false);
+  });
+
+  test("Test delete task list cancel", () async {
+    _deleteTaskViewModel.setDisplay(true);
+    _deleteTaskViewModel.deleteTask(TodoTask(0, "cancel"), cancel: true);
+    await Future.delayed(Duration(seconds: 1));
+    expect(_deleteTaskViewModel.display, false);
   });
 
 }

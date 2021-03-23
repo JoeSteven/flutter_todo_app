@@ -57,8 +57,6 @@ abstract class BaseViewModel extends ChangeNotifier with EventFire, EventSubscri
   }
 
   void setNewState(ViewState newState) {
-    if (_viewState.state == newState.state && _viewState.msg == newState.msg)
-      return;
     notify(() {
       _viewState = newState;
     });

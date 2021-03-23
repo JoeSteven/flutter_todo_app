@@ -21,7 +21,6 @@ class TodoListViewModel extends TodoRepoViewModel {
     super.registerEventHere();
     // insert
     subscribeEvent<TodoTaskInsertEvent>((event) {
-      print("on insert event");
       _onInsert(event.task);
     });
     // update
@@ -45,17 +44,12 @@ class TodoListViewModel extends TodoRepoViewModel {
     });
   }
 
-  void insertTest() {
-    _onInsert(TodoTask(2, "test2"));
-  }
-
   void _onInsert(TodoTask task) {
       if (_taskList.contains(task)) {
         _taskList[_taskList.indexOf(task)] = task;
       } else {
         _taskList.add(task);
       }
-      print("_onInsert:$_taskList");
       notifyListeners();
   }
 

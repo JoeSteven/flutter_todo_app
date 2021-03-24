@@ -14,6 +14,8 @@
 
 ### 安装包
 
+可以在release中找到，也可以在demo文件夹中找到
+
 - Android： demo/android/下有两个apk，如果要在x86模拟器上安装请使用 app-debug-emulator.apk，原因参见[flutter 支持的架构](https://flutter.cn/docs/deployment/android#section-5)。真机可以安装app-release.apk
 - iOS : demo/ios， 由于没有开发者账号无法打包，只能用debug包，可以用iPhone 12 pro模拟器拖拽安装
 

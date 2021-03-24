@@ -49,7 +49,8 @@ class UpdateTaskViewModel extends TodoRepoViewModel with SwitchVisibility {
   @override
   bool get display => super.display && selectedTask != null;
 
-  void selectTask(TodoTask task) {
+  void selectTask(TodoTask? task) {
+    if (task == null) return;
     _selectedTask = task;
     setDisplay(true);
   }
@@ -80,7 +81,8 @@ class DeleteTaskViewModel extends TodoRepoViewModel with SwitchVisibility {
   @override
   bool get display => super.display && selectedTask != null;
 
-  void selectTask(TodoTask task) {
+  void selectTask(TodoTask? task) {
+    if (task == null) return;
     _selectedTask = task;
     setDisplay(true);
   }

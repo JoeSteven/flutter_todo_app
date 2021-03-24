@@ -29,16 +29,17 @@ class ItemTodoWidget extends StatelessWidget {
               ),
         )),
         Container(
-          margin: EdgeInsets.only(right: Dimen().set(10)),
+          // margin: EdgeInsets.only(right: Dimen().set(2)),
           child: IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: ()=>onDelete(task),
+            icon: Icon(Icons.edit,),
+            onPressed: ()=>onEdit(task),
           ),
         ),
         IconButton(
-          icon: Icon(Icons.edit),
-          onPressed: ()=>onEdit(task),
+          icon: Icon(Icons.delete, color: Colors.red,),
+          onPressed: ()=>onDelete(task),
         ),
+
       ],
     );
   }

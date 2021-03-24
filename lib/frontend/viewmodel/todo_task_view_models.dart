@@ -44,6 +44,15 @@ class TodoListViewModel extends TodoRepoViewModel {
     });
   }
 
+  void switchTaskState(TodoTask task, bool newState) {
+    if (task.isFinished == newState) return;
+    safeAsync("switchTaskState", () async {
+      final result = await futureRequest(repo.updateTask(task.update(
+          isFinished: newState)));
+      if (result != null) _onUpdate(result);
+    });
+  }
+
   void _onInsert(TodoTask task) {
       if (_taskList.contains(task)) {
         _taskList[_taskList.indexOf(task)] = task;

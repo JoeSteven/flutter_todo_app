@@ -23,7 +23,7 @@
 
 采用前后分离，repo定义数据接口，上层通过 repo factory获取对应接口实例来进行访问
 
-前端采用mvvm机构，每一个component UI组件绑定对应的viewmodel，组件间相互独立不进行依赖
+前端采用mvvm结构，每一个component UI组件绑定对应的viewmodel，组件间相互独立不进行依赖
 
 页面对component UI组件进行组装，通过component所提供的controller进行通信
 

@@ -32,7 +32,7 @@ void main() {
     _listViewModel.addListener(() {
       if (i == 2) {
         print(_listViewModel.taskList);
-        expect(_listViewModel.taskList.length, 1);
+        expect(_listViewModel.taskList.length, 2);
       }
       ++i;
     });
@@ -52,10 +52,11 @@ void main() {
   test("Test insert task list success", () async {
     _listViewModel.loadTasks();
     await Future.delayed(Duration(seconds: 1));
+    final oldLength = _listViewModel.taskList.length;
     _addTaskViewModel.setDisplay(true);
     _addTaskViewModel.addTask("test2");
     await Future.delayed(Duration(seconds: 1));
-    expect(_listViewModel.taskList.last.title, "test2");
+    expect(_listViewModel.taskList.length, oldLength + 1);
     expect(_addTaskViewModel.display, false);
   });
 
@@ -72,8 +73,8 @@ void main() {
     _updateTaskViewModel.setDisplay(true);
     _updateTaskViewModel.updateTask(_listViewModel.taskList[0],newTitle: "update1", newState: true);
     await Future.delayed(Duration(seconds: 1));
-    expect(_listViewModel.taskList[0].title, "update1");
-    expect(_listViewModel.taskList[0].isFinished, true);
+    expect(_listViewModel.taskList.last.title, "update1");
+    expect(_listViewModel.taskList.last.isFinished, true);
     expect(_updateTaskViewModel.display, false);
   });
 

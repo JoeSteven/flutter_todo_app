@@ -29,4 +29,14 @@ class TodoTask {
         other.title == this.title &&
         other.id == this.id;
   }
+
+  int compareTo(TodoTask second) {
+    if (isFinished && !second.isFinished) {
+      return 1;
+    } else if (!isFinished && second.isFinished) {
+      return -1;
+    } else {
+      return id > second.id ? 1 : -1;
+    }
+  }
 }

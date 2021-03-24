@@ -39,7 +39,10 @@ class TodoListViewModel extends TodoRepoViewModel {
       if (result == null || result.isEmpty){
         setNewState(empty());
       }  else {
-        notify(() => _taskList = result);
+        notify(() {
+          _taskList = result;
+          _sortList();
+        } );
       }
     });
   }
@@ -54,22 +57,31 @@ class TodoListViewModel extends TodoRepoViewModel {
   }
 
   void _onInsert(TodoTask task) {
+    notify(() {
       if (_taskList.contains(task)) {
         _taskList[_taskList.indexOf(task)] = task;
       } else {
         _taskList.add(task);
       }
-      notifyListeners();
+      _sortList();
+    });
   }
 
   void _onUpdate(TodoTask task) {
     if (!_taskList.contains(task)) return;
-    _taskList[_taskList.indexOf(task)] = task;
-    notifyListeners();
+    notify(() {
+      _taskList[_taskList.indexOf(task)] = task;
+      _sortList();
+    });
   }
 
   void _onDelete(TodoTask task) {
-    _taskList.remove(task);
-    notifyListeners();
+    notify(() {
+      _taskList.remove(task);
+    });
+  }
+
+  void _sortList() {
+    _taskList.sort((first, second) => first.compareTo(second));
   }
 }
